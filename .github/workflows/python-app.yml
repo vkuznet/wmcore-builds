@@ -30,7 +30,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Install system dependencies
       run: |
-        sudo apt-get -y install curl
+        sudo apt-get -y install curl libcurl4-gnutls-dev libcurl4-openssl-dev
     - name: Build WMCore
       run: |
         echo "build with"
