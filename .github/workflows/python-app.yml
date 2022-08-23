@@ -15,7 +15,7 @@ permissions:
 jobs:
   build:
 
-    runs-on: degian-latest
+    runs-on: debian-latest
 
     steps:
     - uses: actions/checkout@v3
