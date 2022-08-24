@@ -38,6 +38,8 @@ jobs:
         git clone https://github.com/dmwm/WMCore.git
         pwd
         cd WMCore
+        export Boost_LIBRARYDIR=/usr/lib/x86_64-linux-gnu
+        ls /usr/lib/x86_64-linux-gnu/libboost*
         pip install gfal2-python
         pip install -r requirements.txt
         python setup.py build
