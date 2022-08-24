@@ -25,7 +25,8 @@ jobs:
         python-version: "3.8"
     - name: Install system dependencies
       run: |
-        sudo apt-get -y install curl  libcurl4-openssl-dev
+        sudo apt-get -y install curl  libcurl4-openssl-dev libgfal2-dev libodb-boost-dev
+        sudo apt-cache search libboost-python
     - name: Install python dependencies
       run: |
         python -m pip install --upgrade pip
