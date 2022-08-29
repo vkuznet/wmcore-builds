@@ -15,20 +15,21 @@ permissions:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    container:
+      image: cern/cc7-base
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python 3.10
+    - name: Set up Python 3.8
       uses: actions/setup-python@v3
       with:
-        python-version: "3.10"
+        python-version: "3.8"
     - name: Install system dependencies
       run: |
-        sudo apt-get -y install curl  libcurl4-openssl-dev libgfal2-dev libodb-boost-dev libboost-python-dev libpugixml-dev libjson-c-dev doxygen
+        yum install -y python3-gfal2 python3-gfal2-util
     - name: Install python dependencies
       run: |
-        python -m pip install --upgrade pip
+        python3 -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Build WMCore
