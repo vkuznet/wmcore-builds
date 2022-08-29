@@ -14,9 +14,9 @@ permissions:
 
 jobs:
   build:
-
     container:
       image: cern/cc7-base
+    runs-on: cc7-base
 
     steps:
     - uses: actions/checkout@v3
