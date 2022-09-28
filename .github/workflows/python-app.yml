@@ -14,9 +14,6 @@ permissions:
 
 jobs:
   build:
-#     container:
-#       image: cern/cc7-base
-#     runs-on: cc7-base
     runs-on: ubuntu-latest
 
     steps:
@@ -29,7 +26,6 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y curl libcurl4-openssl-dev
-#         yum install -y python3-gfal2 python3-gfal2-util
     - name: Install python dependencies
       run: |
         python3 -m pip install --upgrade pip
@@ -42,13 +38,17 @@ jobs:
         git clone https://github.com/dmwm/WMCore.git
         pwd
         cd WMCore
+
         # TODO: how to install gfal2-python
         #export Boost_LIBRARYDIR=/usr/lib/x86_64-linux-gnu
         #ls /usr/lib/x86_64-linux-gnu/libboost*
         #pip install gfal2-python
+        #
         # TEMP: remove gfal2-python from requirements
         cat requirements.txt | grep -v gfal2 > r.txt
-        # bs3-client 4.0.10 depends on pycurl~=7.43.0.6
+
+        # TODO: check the following error
+        # dbs3-client 4.0.10 depends on pycurl~=7.43.0.6
         # so we change pycurl~=7.45.1 to 7.43.0.6
         sed -i -e "s,7.45.1,7.43.0.6,g" r.txt
         cat r.txt
