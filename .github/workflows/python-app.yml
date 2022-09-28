@@ -48,6 +48,9 @@ jobs:
         #pip install gfal2-python
         # TEMP: remove gfal2-python from requirements
         cat requirements.txt | grep -v gfal2 > r.txt
+        # bs3-client 4.0.10 depends on pycurl~=7.43.0.6
+        # so we change pycurl~=7.45.1 to 7.43.0.6
+        sed -i -e "s,7.45.1,7.43.0.6,g" r.txt
         cat r.txt
         pip install -r r.txt
         python setup.py build
