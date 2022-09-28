@@ -28,7 +28,7 @@ jobs:
     - name: Install system dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y curl
+        sudo apt-get install -y curl libcurl4-openssl-dev
 #         yum install -y python3-gfal2 python3-gfal2-util
     - name: Install python dependencies
       run: |
