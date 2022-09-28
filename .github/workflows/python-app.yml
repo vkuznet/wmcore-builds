@@ -14,9 +14,10 @@ permissions:
 
 jobs:
   build:
-    container:
-      image: cern/cc7-base
-    runs-on: cc7-base
+#     container:
+#       image: cern/cc7-base
+#     runs-on: cc7-base
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -39,8 +40,11 @@ jobs:
         git clone https://github.com/dmwm/WMCore.git
         pwd
         cd WMCore
-        export Boost_LIBRARYDIR=/usr/lib/x86_64-linux-gnu
-        ls /usr/lib/x86_64-linux-gnu/libboost*
-        pip install gfal2-python
-        pip install -r requirements.txt
+        # TODO: how to install gfal2-python
+        #export Boost_LIBRARYDIR=/usr/lib/x86_64-linux-gnu
+        #ls /usr/lib/x86_64-linux-gnu/libboost*
+        #pip install gfal2-python
+        # TEMP: remove gfal2-python from requirements
+        cat requirements.txt | grep -v gfal2 > r.txt
+        pip install -r r.txt
         python setup.py build
