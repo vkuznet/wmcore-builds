@@ -27,8 +27,8 @@ jobs:
         python-version: "3.8"
     - name: Install system dependencies
       run: |
-        apt-get update
-        apt-get install -y curl
+        sudo apt-get update
+        sudo apt-get install -y curl
 #         yum install -y python3-gfal2 python3-gfal2-util
     - name: Install python dependencies
       run: |
