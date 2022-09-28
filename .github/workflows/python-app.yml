@@ -25,9 +25,9 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.8"
-    - name: Install system dependencies
-      run: |
-        yum install -y python3-gfal2 python3-gfal2-util
+#     - name: Install system dependencies
+#       run: |
+#         yum install -y python3-gfal2 python3-gfal2-util
     - name: Install python dependencies
       run: |
         python3 -m pip install --upgrade pip
