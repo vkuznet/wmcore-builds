@@ -38,10 +38,11 @@ jobs:
           cd WMCore
           pwd
           python setup.py clean sdist
-          ls sdist
+          echo "dist content"
+          ls dist
       - name: Build image
         run: |
-          cd WMCore/sdist
+          cd WMCore/dist
           pwd
           curl -ksLO https://raw.githubusercontent.com/dmwm/CMSKubernetes/master/docker/pypi/${{inputs.wmcore_component}}/Dockerfile.dist
           curl -ksLO https://raw.githubusercontent.com/dmwm/CMSKubernetes/master/docker/pypi/${{inputs.wmcore_component}}/run.sh
