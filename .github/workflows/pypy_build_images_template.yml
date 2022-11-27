@@ -47,5 +47,5 @@ jobs:
           cat Dockerfile.dist
           mv Dockerfile.dist Dockerfile
           echo "content before image build"
-          ls
-          docker build --tag wmcore-image
+          ls -al
+          docker build --tag wmcore-image .
