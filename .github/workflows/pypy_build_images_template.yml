@@ -1,0 +1,41 @@
+# Reusable workflow to setup a specific WMCore component for pip
+
+on:
+  workflow_call:
+    inputs:
+      wmcore_component:
+        required: true
+        type: string
+
+jobs:
+  build_images_from_template:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup python 3.8
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.8"
+      - name: Upgrade pip3
+        run: |
+          python3 -m pip install --upgrade pip
+      - name: Clone WMCore
+        run: |
+          git clone https://github.com/dmwm/WMCore.git
+          cd WMCore
+      - name: Update the setup script template with package name
+        run: |
+          sed "s/PACKAGE_TO_BUILD/${{ inputs.wmcore_component }}/" setup_template.py > setup.py
+      - name: Create requirements file
+        run: |
+          cp requirements.txt requirements.wmcore.txt
+          awk "/(${{ inputs.wmcore_component }}$)|(${{ inputs.wmcore_component }},)/ {print \$1}" requirements.wmcore.txt > requirements.txt
+      - name: Build sdist
+        run: python setup.py clean sdist
+      - name: Build image
+        run: |
+          curl -ksLO https://raw.githubusercontent.com/dmwm/CMSKubernetes/master/docker/pypi/${{inputs.wmcore_component}}/Dockerfile.dist
+          curl -ksLO https://raw.githubusercontent.com/dmwm/CMSKubernetes/master/docker/pypi/${{inputs.wmcore_component}}/run.sh
+          sed -i -e "s,ENV TAG=.*,ENV TAG=${{steps.get-ref.outputs.tag}},g" Dockerfile.dist
+          cat Dockerfile.dist
+          docker build . --tag registry.cern.ch/cmsweb/${{inputs.wmcore_components}}

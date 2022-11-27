@@ -1,0 +1,21 @@
+# This workflow will build and upload WMCore core services to the production PYPY
+# based on tag releases
+
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      name:
+        description: 'Build WMCore'
+        default: 'WMCore'
+        required: true
+
+jobs:
+  build_images:
+    strategy:
+      matrix:
+        target: [wmagent, reqmon, reqmgr2, global-workqueue, reqmgr2ms-unmerged,
+                 reqmgr2ms-output, reqmgr2ms-rulecleaner, reqmgr2ms-transferor, reqmgr2ms-monitor]
+    uses: ./.github/workflows/pypy_build_images_template.yaml
+    with:
+      wmcore_component: ${{ matrix.target }}
