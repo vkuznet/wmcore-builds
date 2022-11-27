@@ -39,8 +39,6 @@ jobs:
         run: |
           cd WMCore/dist
           pwd
-          echo "Building ${{input.wmcore_component}}"
-          echo "https://raw.githubusercontent.com/dmwm/CMSKubernetes/master/docker/pypi/${{inputs.wmcore_component}}/Dockerfile.dist"
           curl -ksLO https://raw.githubusercontent.com/dmwm/CMSKubernetes/master/docker/pypi/${{inputs.wmcore_component}}/Dockerfile.dist
           curl -ksLO https://raw.githubusercontent.com/dmwm/CMSKubernetes/master/docker/pypi/${{inputs.wmcore_component}}/run.sh
           echo "content before image build"
