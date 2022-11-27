@@ -43,5 +43,6 @@ jobs:
           curl -ksLO https://raw.githubusercontent.com/dmwm/CMSKubernetes/master/docker/pypi/${{inputs.wmcore_component}}/run.sh
           sed -i -e "s,ENV TAG=.*,ENV TAG=${{steps.get-ref.outputs.tag}},g" Dockerfile.dist
           cat Dockerfile.dist
+          mv Dockerfile.dist Dockerfile
           echo "content before image build"
-          docker build -t ${{inputs.wmcore_components}} -f Dockerfile.dist
+          docker build -t ${{inputs.wmcore_components}} .
