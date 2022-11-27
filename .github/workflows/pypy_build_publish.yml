@@ -16,6 +16,6 @@ jobs:
       matrix:
         target: [wmagent, reqmon, reqmgr2, global-workqueue, reqmgr2ms-unmerged,
                  reqmgr2ms-output, reqmgr2ms-rulecleaner, reqmgr2ms-transferor, reqmgr2ms-monitor]
-    uses: ./.github/workflows/pypy_build_images_template.yaml
+    uses: .github/workflows/pypy_build_images_template.yml
     with:
       wmcore_component: ${{ matrix.target }}
