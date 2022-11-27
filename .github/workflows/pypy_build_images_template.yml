@@ -45,17 +45,14 @@ jobs:
       - name: Build image
         run: |
           cd WMCore/dist
-          pwd
+          cp ../requirements.txt .
           curl -ksLO https://raw.githubusercontent.com/dmwm/CMSKubernetes/master/docker/pypi/${{inputs.wmcore_component}}/Dockerfile.dist
           curl -ksLO https://raw.githubusercontent.com/dmwm/CMSKubernetes/master/docker/pypi/${{inputs.wmcore_component}}/run.sh
-          echo "content before image build"
-          ls -al
           tag=`ls | grep tar.gz | sed "s,.tar.gz,,g" | awk '{split($1,a,"-"); print a[length(a)]}'`
           echo "tag=$tag"
           sed -i -e "s,ENV TAG=.*,ENV TAG=$tag,g" Dockerfile.dist
           #sed -i -e "s,ENV TAG=.*,ENV TAG=${{steps.get-ref.outputs.tag}},g" Dockerfile.dist
           mv Dockerfile.dist Dockerfile
           cat Dockerfile
-          echo "content before image build"
-          ls -al
-          docker build --tag wmcore-image .
+          docker build --tag registry.cern.ch/cmsweb/${{inputs.wmcore_component}} .
+          docker images
